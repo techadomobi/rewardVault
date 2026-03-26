@@ -232,7 +232,7 @@ export function HeroSection() {
                 </span>
               </Button>
             </Link>
-            <Link href="/watch-how-it-works">
+            <Link href="/watch-how-it-works" className="no-underline">
               <Button 
                 size="lg" 
                 variant="outline" 
