@@ -6,23 +6,81 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { ArrowRight, Mail, Lock, User, Eye, EyeOff } from "lucide-react"
+import { ArrowRight, Mail, Lock, User, Eye, EyeOff, AlertCircle } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function SignInPage() {
   const [isLogin, setIsLogin] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  })
+  
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
     
-    // Simulate API call
-    setTimeout(() => {
+    // Basic validation
+    if (!isLogin && !formData.name.trim()) {
+      setError("Please enter your full name")
       setIsLoading(false)
-      // In a real app, you'd handle authentication here
-    }, 2000)
+      return
+    }
+    
+    if (!formData.email.trim()) {
+      setError("Please enter your email address")
+      setIsLoading(false)
+      return
+    }
+    
+    if (!formData.password) {
+      setError("Please enter your password")
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
+      // Mock successful authentication
+      if (isLogin) {
+        // For login, just redirect to dashboard
+        localStorage.setItem('user', JSON.stringify({
+          name: "Alex Johnson",
+          email: formData.email,
+          isAuthenticated: true
+        }))
+        router.push('/dashboard')
+      } else {
+        // For registration, redirect to dashboard
+        localStorage.setItem('user', JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          isAuthenticated: true
+        }))
+        router.push('/dashboard')
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   return (
@@ -50,6 +108,15 @@ export default function SignInPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center space-x-2 text-red-600">
+                  <AlertCircle className="h-4 w-4" />
+                  <span className="text-sm">{error}</span>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {!isLogin && (
                 <div className="space-y-2">
@@ -58,6 +125,9 @@ export default function SignInPage() {
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                     <Input
                       id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       placeholder="Enter your full name"
                       className="pl-10"
                       required={!isLogin}
@@ -72,7 +142,10 @@ export default function SignInPage() {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     id="email"
+                    name="email"
                     type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Enter your email"
                     className="pl-10"
                     required
@@ -86,7 +159,10 @@ export default function SignInPage() {
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={handleInputChange}
                     placeholder="Enter your password"
                     className="pl-10 pr-10"
                     required
