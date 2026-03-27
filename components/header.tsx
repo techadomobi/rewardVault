@@ -35,6 +35,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [pathname])
+
   return (
     <header 
       className={`
@@ -182,7 +187,7 @@ export function Header() {
         <div 
           className={`
             md:hidden overflow-hidden transition-all duration-300 ease-out
-            ${mobileMenuOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}
+            ${mobileMenuOpen ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}
           `}
         >
           <nav className="flex flex-col gap-1 py-4 border-t border-border">
@@ -202,7 +207,7 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ 
                     transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
-                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
                     opacity: mobileMenuOpen ? 1 : 0,
                   }}
                 >
@@ -229,7 +234,7 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ 
                     transitionDelay: mobileMenuOpen ? `${(index + navLinks.length) * 50}ms` : '0ms',
-                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
                     opacity: mobileMenuOpen ? 1 : 0,
                   }}
                 >

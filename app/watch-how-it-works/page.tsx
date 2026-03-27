@@ -77,7 +77,7 @@ export default function WatchHowItWorksPage() {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background pt-24">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10" />

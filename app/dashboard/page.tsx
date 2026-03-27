@@ -61,7 +61,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background">
       {/* Header */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text-animated mb-2">

@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useToast } from "@/hooks/use-toast"
 import { 
   Shield, 
   Bell, 
@@ -45,6 +46,8 @@ export default function SettingsPage() {
     sessionTimeout: true,
     loginAlerts: true
   })
+  const [isSaving, setIsSaving] = useState(false)
+  const { toast } = useToast()
 
   const handleNotificationToggle = (key: keyof typeof notifications) => {
     setNotifications(prev => ({
@@ -60,14 +63,37 @@ export default function SettingsPage() {
     }))
   }
 
-  const handleSave = () => {
-    // In a real app, this would save to a backend
-    console.log('Settings saved:', { isDarkMode, notifications, security })
+  const handleSave = async () => {
+    setIsSaving(true)
+    
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // In a real app, this would save to a backend
+      console.log('Settings saved:', { isDarkMode, notifications, security })
+      
+      // Show success toast
+      toast({
+        title: "Settings Saved",
+        description: "Your preferences have been updated successfully.",
+        variant: "default"
+      })
+    } catch (error) {
+      // Show error toast
+      toast({
+        title: "Save Failed",
+        description: "There was an error saving your settings. Please try again.",
+        variant: "destructive"
+      })
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold gradient-text-animated mb-2">
@@ -440,14 +466,24 @@ export default function SettingsPage() {
             </TabsContent>
           </Tabs>
 
-          {/* Save Button */}
+            {/* Save Button */}
           <div className="flex justify-end mt-8">
             <Button 
               onClick={handleSave}
+              disabled={isSaving}
               className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center space-x-2"
             >
-              <Save className="h-4 w-4" />
-              <span>Save All Settings</span>
+              {isSaving ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4" />
+                  <span>Save All Settings</span>
+                </>
+              )}
             </Button>
           </div>
         </div>

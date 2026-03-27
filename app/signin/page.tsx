@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,6 +22,29 @@ export default function SignInPage() {
   })
   
   const router = useRouter()
+
+  useEffect(() => {
+    const mode = new URLSearchParams(window.location.search).get("mode")
+    setIsLogin(mode !== "signup")
+  }, [])
+
+  const switchAuthMode = (nextIsLogin: boolean) => {
+    setIsLogin(nextIsLogin)
+    const target = nextIsLogin ? "/signin?mode=signin" : "/signin?mode=signup"
+    router.replace(target)
+  }
+
+  const redirectToDashboard = () => {
+    router.replace('/dashboard')
+    router.refresh()
+
+    // Fallback in case client-side navigation stalls in the current runtime/session.
+    setTimeout(() => {
+      if (window.location.pathname !== '/dashboard') {
+        window.location.href = '/dashboard'
+      }
+    }, 150)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,7 +82,7 @@ export default function SignInPage() {
           email: formData.email,
           isAuthenticated: true
         }))
-        router.push('/dashboard')
+        redirectToDashboard()
       } else {
         // For registration, redirect to dashboard
         localStorage.setItem('user', JSON.stringify({
@@ -67,7 +90,7 @@ export default function SignInPage() {
           email: formData.email,
           isAuthenticated: true
         }))
-        router.push('/dashboard')
+        redirectToDashboard()
       }
     } catch (err) {
       setError("An error occurred. Please try again.")
@@ -84,7 +107,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-secondary/50 to-background py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-secondary/50 to-background py-12 px-4 sm:px-6 lg:px-8 pt-24">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold gradient-text-animated mb-2">
@@ -221,8 +244,9 @@ export default function SignInPage() {
               <p className="text-sm text-muted-foreground">
                 {isLogin ? "Don't have an account?" : "Already have an account?"}
                 <button
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="ml-2 text-primary hover:underline font-medium"
+                  type="button"
+                  onClick={() => switchAuthMode(!isLogin)}
+                  className="ml-2 text-primary hover:underline font-medium inline-block"
                 >
                   {isLogin ? "Sign up here" : "Sign in here"}
                 </button>

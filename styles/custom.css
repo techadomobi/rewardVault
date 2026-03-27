@@ -187,6 +187,40 @@
   box-shadow: 0 0 20px rgba(0, 245, 160, 0.5), 0 0 40px rgba(0, 245, 160, 0.3), 0 0 60px rgba(0, 245, 160, 0.2);
 }
 
+/* Header and Layout Improvements */
+.header-spacing {
+  padding-top: 80px; /* Space for fixed header */
+}
+
+@media (max-width: 768px) {
+  .header-spacing {
+    padding-top: 120px; /* More space for mobile header */
+  }
+}
+
+/* Improved Header Styles */
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-strong {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth transitions for header */
+header {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile menu improvements */
+.mobile-menu-item {
+  transition: all 0.3s ease-out;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .animate-float {
@@ -199,5 +233,11 @@
   
   .hover-lift:hover {
     transform: translateY(-4px);
+  }
+  
+  /* Better mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
