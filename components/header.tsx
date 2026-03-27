@@ -14,6 +14,13 @@ const navLinks = [
   { href: "/about", label: "About" },
 ]
 
+const userLinks = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/profile", label: "Profile" },
+  { href: "/activity", label: "Activity" },
+  { href: "/settings", label: "Settings" },
+]
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -56,6 +63,44 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
+              const isActive = pathname === link.href
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`
+                    relative px-4 py-2 text-sm font-medium rounded-lg
+                    transition-all duration-300
+                    ${isActive 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground hover:text-foreground'
+                    }
+                  `}
+                >
+                  {link.label}
+                  {/* Active indicator */}
+                  <span 
+                    className={`
+                      absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full
+                      transition-all duration-300
+                      ${isActive ? 'w-4' : 'w-0'}
+                    `}
+                  />
+                  {/* Hover background */}
+                  <span 
+                    className={`
+                      absolute inset-0 rounded-lg bg-primary/10 
+                      transition-opacity duration-300
+                      ${isActive ? 'opacity-100' : 'opacity-0 hover:opacity-100'}
+                    `}
+                  />
+                </Link>
+              )
+            })}
+            
+            {/* User Navigation (Dashboard, Profile, etc.) */}
+            <div className="h-6 w-px bg-border mx-2" />
+            {userLinks.map((link) => {
               const isActive = pathname === link.href
               return (
                 <Link
@@ -165,6 +210,34 @@ export function Header() {
                 </Link>
               )
             })}
+            
+            {/* User Links Section */}
+            <div className="h-px bg-border my-2" />
+            {userLinks.map((link, index) => {
+              const isActive = pathname === link.href
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`
+                    px-4 py-3 rounded-lg transition-all duration-300
+                    ${isActive 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    }
+                  `}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{ 
+                    transitionDelay: mobileMenuOpen ? `${(index + navLinks.length) * 50}ms` : '0ms',
+                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    opacity: mobileMenuOpen ? 1 : 0,
+                  }}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+            
             <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-border">
               <Link href="/signin">
                 <Button variant="ghost" className="justify-start">
