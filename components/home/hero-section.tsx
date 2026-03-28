@@ -75,11 +75,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: strin
 
 export function HeroSection() {
   const mousePosition = useMouseParallax(0.02)
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = true
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 particles-bg">

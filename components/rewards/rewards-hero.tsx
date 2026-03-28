@@ -1,7 +1,6 @@
 "use client"
 
 import { Gift, CreditCard, Coins, Sparkles } from "lucide-react"
-import { useEffect, useState } from "react"
 
 const quickStats = [
   {
@@ -28,11 +27,7 @@ const quickStats = [
 ]
 
 export function RewardsHero() {
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = true
 
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
@@ -63,7 +58,7 @@ export function RewardsHero() {
             `}
           >
             Turn Points Into{" "}
-            <span className="bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent animate-gradient-x bg-[length:200%_100%]">
+            <span className="bg-linear-to-r from-accent to-orange-400 bg-clip-text text-transparent animate-gradient-x bg-[length:200%_100%]">
               Real Rewards
             </span>
           </h1>

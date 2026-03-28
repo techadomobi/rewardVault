@@ -92,7 +92,7 @@ export default function SignInPage() {
         }))
         redirectToDashboard()
       }
-    } catch (err) {
+    } catch {
       setError("An error occurred. Please try again.")
     } finally {
       setIsLoading(false)
@@ -107,7 +107,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-secondary/50 to-background py-12 px-4 sm:px-6 lg:px-8 pt-24">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-background via-secondary/50 to-background py-12 px-4 sm:px-6 lg:px-8 pt-24">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold gradient-text-animated mb-2">

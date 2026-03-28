@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Play, Users, DollarSign, Gift, Zap, Star, Trophy, Sparkles, Video, Clock, CheckCircle } from "lucide-react"
@@ -74,8 +73,6 @@ const testimonials = [
 ]
 
 export default function WatchHowItWorksPage() {
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null)
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background pt-24">
       {/* Hero Section */}
@@ -119,7 +116,7 @@ export default function WatchHowItWorksPage() {
                   Watch this quick video to see how easy it is to start earning
                 </CardDescription>
               </CardHeader>
-              <CardContent className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center relative overflow-hidden group cursor-pointer" onClick={() => setPlayingVideo(0)}>
+              <CardContent className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center relative overflow-hidden group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl" />
                 <div className="relative z-10 text-center">
                   <div className="w-20 h-20 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -186,7 +183,6 @@ export default function WatchHowItWorksPage() {
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                      <CardDescription className="text-primary font-semibold">{testimonial.earnings} earned</CardDescription>
                     </div>
                     <div className="flex gap-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -195,10 +191,7 @@ export default function WatchHowItWorksPage() {
                     </div>
                   </div>
                   {testimonial.video && (
-                    <div 
-                      className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center cursor-pointer group-hover:scale-[1.02] transition-transform"
-                      onClick={() => setPlayingVideo(index + 1)}
-                    >
+                    <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center cursor-pointer group-hover:scale-[1.02] transition-transform">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg" />
                       <div className="relative z-10 text-center">
                         <div className="w-16 h-16 mx-auto mb-2 bg-white/20 rounded-full flex items-center justify-center">
@@ -211,7 +204,7 @@ export default function WatchHowItWorksPage() {
                   )}
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground italic">"{testimonial.quote}"</p>
+                  <p className="text-muted-foreground italic">&ldquo;{testimonial.quote}&rdquo;</p>
                   {testimonial.video && (
                     <div className="mt-4 text-xs text-muted-foreground flex items-center gap-2">
                       <Video className="w-4 h-4" />
@@ -226,7 +219,7 @@ export default function WatchHowItWorksPage() {
       </section>
 
       {/* Process Visualization */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 to-accent/5">
+      <section className="py-20 bg-linear-to-r from-primary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">From Zero to Rewards</h2>

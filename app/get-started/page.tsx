@@ -197,7 +197,7 @@ export default function GetStartedPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground italic">"{testimonial.quote}"</p>
+                  <p className="text-muted-foreground italic">&ldquo;{testimonial.quote}&rdquo;</p>
                 </CardContent>
               </Card>
             ))}
@@ -206,7 +206,7 @@ export default function GetStartedPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 to-accent/10">
+      <section className="py-20 bg-linear-to-r from-primary/10 to-accent/10">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold gradient-text-animated mb-6">
             Ready to Start Earning?

@@ -12,20 +12,14 @@ import { useToast } from "@/hooks/use-toast"
 import { 
   Shield, 
   Bell, 
-  Globe, 
-  CreditCard, 
   User, 
   Key, 
   Eye, 
-  EyeOff, 
   Save, 
   Trash2, 
   Download,
   Upload,
-  Moon,
   Sun,
-  Languages,
-  DollarSign,
   AlertCircle,
   CheckCircle,
   Mail,
@@ -79,7 +73,7 @@ export default function SettingsPage() {
         description: "Your preferences have been updated successfully.",
         variant: "default"
       })
-    } catch (error) {
+    } catch {
       // Show error toast
       toast({
         title: "Save Failed",

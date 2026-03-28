@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Gift, DollarSign, Trophy, Star } from "lucide-react"
+import { Gift, DollarSign, Trophy } from "lucide-react"
 
 const activities = [
   { user: "Alex M.", action: "earned", amount: "500 points", type: "offer", icon: Gift },
@@ -23,18 +23,14 @@ const getRandomActivity = () => {
 }
 
 export function LiveActivityTicker() {
-  const [currentActivities, setCurrentActivities] = useState<Array<ReturnType<typeof getRandomActivity>>>([])
-  const [isVisible, setIsVisible] = useState(false)
+  const [currentActivities, setCurrentActivities] = useState<Array<ReturnType<typeof getRandomActivity>>>(() => [
+    getRandomActivity(),
+    getRandomActivity(),
+    getRandomActivity(),
+  ])
+  const isVisible = true
 
   useEffect(() => {
-    // Initialize with some activities
-    setCurrentActivities([
-      getRandomActivity(),
-      getRandomActivity(),
-      getRandomActivity(),
-    ])
-    setIsVisible(true)
-
     // Add new activity periodically
     const interval = setInterval(() => {
       setCurrentActivities(prev => {

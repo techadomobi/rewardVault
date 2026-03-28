@@ -16,6 +16,7 @@ const navLinks = [
 
 const userLinks = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/admin", label: "Admin" },
   { href: "/profile", label: "Profile" },
   { href: "/activity", label: "Activity" },
   { href: "/settings", label: "Settings" },
@@ -37,7 +38,11 @@ export function Header() {
 
   // Close mobile menu when route changes
   useEffect(() => {
-    setMobileMenuOpen(false)
+    const timeout = setTimeout(() => {
+      setMobileMenuOpen(false)
+    }, 0)
+
+    return () => clearTimeout(timeout)
   }, [pathname])
 
   return (
@@ -155,7 +160,7 @@ export function Header() {
             <Link href="/get-started">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90 glow-green group relative overflow-hidden">
                 <span className="relative z-10">Get Started</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </Button>
             </Link>
           </div>
@@ -187,7 +192,7 @@ export function Header() {
         <div 
           className={`
             md:hidden overflow-hidden transition-all duration-300 ease-out
-            ${mobileMenuOpen ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}
+            ${mobileMenuOpen ? 'max-h-125 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}
           `}
         >
           <nav className="flex flex-col gap-1 py-4 border-t border-border">

@@ -1,7 +1,6 @@
 "use client"
 
 import { Coins, TrendingUp, Clock, Sparkles } from "lucide-react"
-import { useEffect, useState } from "react"
 
 const quickStats = [
   {
@@ -28,11 +27,7 @@ const quickStats = [
 ]
 
 export function EarnHero() {
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = true
 
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">

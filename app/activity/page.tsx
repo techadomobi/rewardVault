@@ -7,16 +7,11 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { 
-  Calendar, 
   DollarSign, 
   Gift, 
   Users, 
   TrendingUp, 
   TrendingDown, 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
-  Filter,
   Search,
   Download,
   Eye,

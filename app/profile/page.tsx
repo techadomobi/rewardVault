@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { 
-  User, 
   Mail, 
   Phone, 
   MapPin, 
@@ -20,7 +19,6 @@ import {
   Upload,
   Star,
   TrendingUp,
-  Users,
   Gift
 } from "lucide-react"
 
@@ -214,7 +212,7 @@ export default function ProfilePage() {
             <Card className="glass-card border-border">
               <CardHeader>
                 <CardTitle>Personal Information</CardTitle>
-                <CardDescription>Update your account's personal information</CardDescription>
+                <CardDescription>Update your account&apos;s personal information</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

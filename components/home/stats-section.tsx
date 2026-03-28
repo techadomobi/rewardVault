@@ -2,7 +2,7 @@
 
 import { DollarSign, Users, Gift, Star } from "lucide-react"
 import { useScrollAnimation, useCountUp } from "@/hooks/use-scroll-animation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 
 const stats = [
   {
@@ -53,14 +53,14 @@ function StatCard({
   isVisible: boolean
 }) {
   const { count, startAnimation } = useCountUp(stat.value, 2000, 0)
-  const [hasAnimated, setHasAnimated] = useState(false)
+  const hasAnimatedRef = useRef(false)
 
   useEffect(() => {
-    if (isVisible && !hasAnimated) {
+    if (isVisible && !hasAnimatedRef.current) {
+      hasAnimatedRef.current = true
       startAnimation()
-      setHasAnimated(true)
     }
-  }, [isVisible, hasAnimated, startAnimation])
+  }, [isVisible, startAnimation])
 
   return (
     <div 
@@ -89,7 +89,7 @@ function StatCard({
       <div className="text-sm text-muted-foreground">{stat.description}</div>
       
       {/* Decorative line */}
-      <div className="mt-4 h-0.5 w-0 mx-auto bg-gradient-to-r from-primary to-accent group-hover:w-16 transition-all duration-500" />
+      <div className="mt-4 h-0.5 w-0 mx-auto bg-linear-to-r from-primary to-accent group-hover:w-16 transition-all duration-500" />
     </div>
   )
 }
@@ -100,7 +100,7 @@ export function StatsSection() {
   return (
     <section ref={ref} className="py-20 md:py-32 relative overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-transparent to-accent/5" />
       
       {/* Animated background shapes */}
       <div className="absolute top-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-[100px] animate-morph" />
